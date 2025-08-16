@@ -1,12 +1,18 @@
 import "../styles/globals.css";
 import type { AppProps } from "next/app";
-import Layout from "../components/layouts/Layout";
+import Navbar from "../components/Navbar";
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <Layout>
-      <Component {...pageProps} />
-    </Layout>
+    <>
+      {/* Fixed Navbar at the top */}
+      <Navbar />
+
+      {/* Main content with top padding so it's not hidden behind navbar */}
+      <main className="pt-16">
+        <Component {...pageProps} />
+      </main>
+    </>
   );
 }
 
