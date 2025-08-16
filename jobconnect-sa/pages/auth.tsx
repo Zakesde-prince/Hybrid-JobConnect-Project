@@ -3,6 +3,34 @@ import { useState } from "react";
 
 export default function Auth() {
   const [isSignUp, setIsSignUp] = useState(true);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [name, setName] = useState("");
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+
+    if (isSignUp) {
+      // Save user to localStorage (simulated)
+      const users = JSON.parse(localStorage.getItem("users") || "[]");
+      users.push({ name, email, password });
+      localStorage.setItem("users", JSON.stringify(users));
+      alert("Sign Up successful! You can now sign in.");
+      setIsSignUp(false);
+      setName("");
+      setEmail("");
+      setPassword("");
+    } else {
+      // Check login
+      const users = JSON.parse(localStorage.getItem("users") || "[]");
+      const user = users.find((u: any) => u.email === email && u.password === password);
+      if (user) {
+        alert(`Welcome back, ${user.name}!`);
+      } else {
+        alert("Invalid email or password.");
+      }
+    }
+  };
 
   return (
     <Layout>
@@ -16,7 +44,7 @@ export default function Auth() {
             : "Sign in to continue your journey."}
         </p>
 
-        <form className="bg-white shadow-md rounded-lg px-8 py-10">
+        <form onSubmit={handleSubmit} className="bg-white shadow-md rounded-lg px-8 py-10">
           {isSignUp && (
             <div className="mb-4">
               <label className="block text-gray-700 text-sm font-bold mb-2">
@@ -25,7 +53,10 @@ export default function Auth() {
               <input
                 type="text"
                 placeholder="Your name"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
                 className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring focus:ring-indigo-500"
+                required
               />
             </div>
           )}
@@ -37,7 +68,10 @@ export default function Auth() {
             <input
               type="email"
               placeholder="you@example.com"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring focus:ring-indigo-500"
+              required
             />
           </div>
 
@@ -48,7 +82,10 @@ export default function Auth() {
             <input
               type="password"
               placeholder="********"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
               className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring focus:ring-indigo-500"
+              required
             />
           </div>
 
