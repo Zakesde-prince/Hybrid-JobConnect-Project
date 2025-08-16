@@ -1,14 +1,16 @@
 import React from "react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
+import { FaBriefcase } from "react-icons/fa";
 
 const AboutPage: React.FC = () => {
   return (
     <div className="min-h-screen bg-gray-900 text-white">
       <Navbar />
       <main className="max-w-4xl mx-auto pt-20 px-8 bg-gray-900">
-        {/* Intro Section */}
-        <section className="mb-8 text-center">
+        {/* Intro Section with Animated Icon */}
+        <section className="mb-8 text-center relative">
+          <FaBriefcase className="text-blue-400 text-6xl mx-auto mb-4 animate-bounce-slow" />
           <h1 className="text-4xl font-extrabold mb-2">About JobConnect-SA</h1>
           <p className="text-gray-300">
             JobConnect-SA is your go-to platform for connecting entry-level and administrative job seekers with opportunities in South Africa. Our mission is to simplify the job search process, connect talent with employers, and provide a seamless experience for both sides.
