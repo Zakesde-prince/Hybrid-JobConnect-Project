@@ -1,6 +1,6 @@
 import Layout from "../components/Layout";
 import Button from "../components/Button";
-import Link from "next/link"; // <-- needed for navigation
+import Link from "next/link";
 
 export default function Home() {
   return (
@@ -24,7 +24,10 @@ export default function Home() {
           />
         </div>
 
-        <Button text="Get Started" onClick={() => alert("Let's go!")} />
+        {/* Hero Get Started button */}
+        <Link href="/auth">
+          <Button text="Get Started" />
+        </Link>
       </section>
 
       {/* Features Section */}
@@ -70,12 +73,9 @@ export default function Home() {
             Join us today and take the first step towards your future!
           </p>
 
-          {/* Updated button to navigate to /auth */}
-          <Link
-            href="/auth"
-            className="inline-block bg-white text-indigo-600 font-semibold px-6 py-3 rounded-full shadow-md hover:bg-gray-200 transition-colors duration-300"
-          >
-            Sign Up Now
+          {/* Updated CTA button */}
+          <Link href="/auth">
+            <Button text="Sign Up Now" />
           </Link>
         </div>
       </section>
