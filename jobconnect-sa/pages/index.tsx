@@ -4,6 +4,9 @@ import Button from "../components/Button";
 export default function Home() {
   return (
     <Layout>
+      
+      
+
       <section className="text-center py-20 bg-gray-50 rounded-lg shadow-md px-4 sm:px-6 md:px-12">
         <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-gray-800 mb-6">
           Welcome to My Website
