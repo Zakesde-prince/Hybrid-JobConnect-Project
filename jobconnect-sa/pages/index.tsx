@@ -46,6 +46,23 @@ export default function Home() {
         </div>
       </section>
 
+      <section className="bg-indigo-600 text-white py-16 px-4 sm:px-6 lg:px-12">
+        <div className="max-w-4xl mx-auto text-center">
+        <h3 className="text-2xl sm:text-3xl font-bold mb-4">
+            Ready to Get Started?
+        </h3>
+          <p className="text-lg sm:text-xl mb-8">
+            Join us today and take the first step towards your future!
+          </p>
+          <a
+            href="#"
+            className="inline-block bg-white text-indigo-600 font-semibold px-6 py-3 rounded-full shadow-md hover:bg-gray-200 transition-colors duration-300"
+          >
+            Sign Up Now
+          </a>
+        </div>
+      </section>
+
     </Layout>
   );
 }
