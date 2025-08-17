@@ -13,8 +13,8 @@ const JobCard: React.FC<JobProps> = ({
   return (
     <Link href={`/jobs/${id}`}>
       <div className="bg-gray-800 rounded-2xl p-4 shadow-md cursor-pointer hover:shadow-xl hover:translate-y-1 transition transform">
-        <h3 className="text-xl font-semibold">{title}</h3>
-        <p className="text-blue-400">{company}</p>
+        <h3 className="text-xl font-semibold text-white">{title}</h3>
+        <p className="text-blue-400 font-medium">{company}</p>
         <p className="text-gray-300">{location} • {type} • {salary}</p>
       </div>
     </Link>

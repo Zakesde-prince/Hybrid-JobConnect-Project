@@ -1,11 +1,9 @@
 import React, { useState, useEffect } from "react";
 import JobCard from "../../components/commons/JobCard";
 import Loading from "../../components/commons/Loading";
-import Navbar from "../../components/Navbar";
-import Footer from "../../components/Footer";
 import { JobProps } from "../../interfaces";
 
-const JobsPage: React.FC = () => {
+const JobsPage = () => {
   const [jobs, setJobs] = useState<JobProps[]>([]);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState("");
@@ -57,96 +55,101 @@ const JobsPage: React.FC = () => {
   const totalPages = Math.ceil(filteredJobs.length / jobsPerPage);
 
   return (
-    <div className="min-h-screen flex flex-col bg-gray-900 text-white">
-      <Navbar />
+    <div className="max-w-6xl mx-auto p-4">
+      <h1 className="text-3xl font-bold mb-6">Available Jobs</h1>
 
-      <main className="flex-grow max-w-6xl mx-auto pt-20 px-8">
-        <h1 className="text-2xl font-bold mb-4">Available Jobs</h1>
+      {/* Search */}
+      <input
+        type="text"
+        placeholder="Search jobs..."
+        value={search}
+        onChange={(e) => {
+          setSearch(e.target.value);
+          setPage(1);
+        }}
+        className="border p-2 rounded w-full mb-4"
+      />
 
-        {/* Search */}
-        <input
-          type="text"
-          placeholder="Search jobs..."
-          value={search}
+      {/* Filters */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+        <select
+          value={location}
           onChange={(e) => {
-            setSearch(e.target.value);
+            setLocation(e.target.value);
             setPage(1);
           }}
-          className="border bg-gray-800 text-white p-2 rounded w-full mb-4"
-        />
+          className="border p-2 rounded"
+        >
+          <option value="">All Locations</option>
+          <option value="Johannesburg">Johannesburg</option>
+          <option value="Cape Town">Cape Town</option>
+          <option value="Pretoria">Pretoria</option>
+          <option value="Durban">Durban</option>
+        </select>
 
-        {/* Filters */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-          <select
-            value={location}
-            onChange={(e) => { setLocation(e.target.value); setPage(1); }}
-            className="border bg-gray-800 text-white p-2 rounded"
-          >
-            <option value="">All Locations</option>
-            <option value="Johannesburg">Johannesburg</option>
-            <option value="Cape Town">Cape Town</option>
-            <option value="Pretoria">Pretoria</option>
-            <option value="Durban">Durban</option>
-          </select>
+        <select
+          value={type}
+          onChange={(e) => {
+            setType(e.target.value);
+            setPage(1);
+          }}
+          className="border p-2 rounded"
+        >
+          <option value="">All Types</option>
+          <option value="Full-time">Full-time</option>
+          <option value="Part-time">Part-time</option>
+        </select>
 
-          <select
-            value={type}
-            onChange={(e) => { setType(e.target.value); setPage(1); }}
-            className="border bg-gray-800 text-white p-2 rounded"
-          >
-            <option value="">All Types</option>
-            <option value="Full-time">Full-time</option>
-            <option value="Part-time">Part-time</option>
-          </select>
+        <select
+          value={salary}
+          onChange={(e) => {
+            setSalary(e.target.value);
+            setPage(1);
+          }}
+          className="border p-2 rounded"
+        >
+          <option value="">All Salaries</option>
+          <option value="R6,500">R6,500+</option>
+          <option value="R8,500">R8,500+</option>
+          <option value="R10,000">R10,000+</option>
+        </select>
+      </div>
 
-          <select
-            value={salary}
-            onChange={(e) => { setSalary(e.target.value); setPage(1); }}
-            className="border bg-gray-800 text-white p-2 rounded"
-          >
-            <option value="">All Salaries</option>
-            <option value="R6,500">R6,500+</option>
-            <option value="R8,500">R8,500+</option>
-            <option value="R10,000">R10,000+</option>
-          </select>
+      {/* Jobs */}
+      {loading ? (
+        <Loading />
+      ) : paginatedJobs.length > 0 ? (
+        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+          {paginatedJobs.map((job) => (
+            <JobCard key={job.id} {...job} />
+          ))}
         </div>
+      ) : (
+        <p className="text-gray-400 mt-6">No jobs found.</p>
+      )}
 
-        {/* Jobs Grid */}
-        {loading ? (
-          <Loading />
-        ) : paginatedJobs.length > 0 ? (
-          <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-4">
-            {paginatedJobs.map((job) => (
-              <JobCard key={job.id} {...job} />
-            ))}
-          </div>
-        ) : (
-          <p className="text-gray-400 text-center mt-8">No jobs found.</p>
-        )}
-
-        {/* Pagination */}
-        {!loading && filteredJobs.length > 0 && (
-          <div className="flex justify-center items-center gap-4 mt-6">
-            <button
-              onClick={() => setPage((p) => Math.max(p - 1, 1))}
-              disabled={page === 1}
-              className="px-4 py-2 bg-gray-700 text-white rounded disabled:opacity-50 hover:bg-blue-500 transition"
-            >
-              Prev
-            </button>
-            <span>Page {page} of {totalPages}</span>
-            <button
-              onClick={() => setPage((p) => Math.min(p + 1, totalPages))}
-              disabled={page === totalPages}
-              className="px-4 py-2 bg-gray-700 text-white rounded disabled:opacity-50 hover:bg-blue-500 transition"
-            >
-              Next
-            </button>
-          </div>
-        )}
-      </main>
-
-      <Footer />
+      {/* Pagination */}
+      {!loading && filteredJobs.length > 0 && (
+        <div className="flex justify-center items-center gap-4 mt-6">
+          <button
+            onClick={() => setPage((p) => Math.max(p - 1, 1))}
+            disabled={page === 1}
+            className="px-4 py-2 bg-gray-300 rounded disabled:opacity-50"
+          >
+            Prev
+          </button>
+          <span>
+            Page {page} of {totalPages}
+          </span>
+          <button
+            onClick={() => setPage((p) => Math.min(p + 1, totalPages))}
+            disabled={page === totalPages}
+            className="px-4 py-2 bg-gray-300 rounded disabled:opacity-50"
+          >
+            Next
+          </button>
+        </div>
+      )}
     </div>
   );
 };
