@@ -1,22 +1,23 @@
 import React from "react";
+import Link from "next/link";
 import { JobProps } from "../../interfaces";
 
 const JobCard: React.FC<JobProps> = ({
+  id,
   title,
   company,
   location,
   type,
   salary,
-  postedDate,
 }) => {
   return (
-    <div className="border rounded p-4 shadow hover:shadow-lg transition">
-      <h2 className="text-xl font-bold">{title}</h2>
-      <p className="text-gray-600">{company}</p>
-      <p>{location} • {type}</p>
-      <p className="text-green-600 font-semibold">{salary}</p>
-      <p className="text-sm text-gray-500">Posted: {postedDate}</p>
-    </div>
+    <Link href={`/jobs/${id}`}>
+      <div className="bg-gray-800 rounded-2xl p-4 shadow-md cursor-pointer hover:shadow-xl hover:translate-y-1 transition transform">
+        <h3 className="text-xl font-semibold">{title}</h3>
+        <p className="text-blue-400">{company}</p>
+        <p className="text-gray-300">{location} • {type} • {salary}</p>
+      </div>
+    </Link>
   );
 };
 
